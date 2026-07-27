@@ -27,10 +27,11 @@ public class VideoStreamingSystem {
         do {
             System.out.println("\n===== VIDEO STREAMING SYSTEM =====");
             System.out.println("1. View Videos");
-            System.out.println("2. Search Video");
-            System.out.println("3. Play Video");
-            System.out.println("4. Sort Video");
-            System.out.println("Exit");
+            System.out.println("3. Search Video");
+            System.out.println("4. Play Video");
+            System.out.println("5. Add video");
+            System.out.println("6. Sort Video");
+            System.out.println("7. Exit");
             System.out.print("Enter Choice: ");
             choice = sc.nextInt();
             sc.nextLine();
@@ -72,11 +73,15 @@ public class VideoStreamingSystem {
                         System.out.println("Invalid Video Number");
                     }
                     break;
-                 
-                case 4:
+                    case 4:
                     System.out.println("sort video");
                     break;
-                case 5:
+
+                 case 5:
+                    System.out.println("Add video");
+                    break;
+
+                  case 6:
                     System.out.println("Thank You!");
                     break;
 
