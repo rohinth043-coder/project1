@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class VideoStreamingSystem {
@@ -6,32 +7,36 @@ public class VideoStreamingSystem {
 
         Scanner sc = new Scanner(System.in);
 
-        String[] videos = {
-            "Java Tutorial",
-            "Python Course",
-            "Movie Trailer",
-            "Music Video",
-            "HTML Basics"
-        };
+        String[] videos = new String[10];
+        String[] category = new String[10];
 
-        String[] category = {
-            "Education",
-            "Education",
-            "Entertainment",
-            "Music",
-            "Education"
-        };
+        videos[0] = "Java Tutorial";
+        category[0] = "Education";
 
+        videos[1] = "Python Course";
+        category[1] = "Education";
+
+        videos[2] = "Movie Trailer";
+        category[2] = "Entertainment";
+
+        videos[3] = "Music Video";
+        category[3] = "Music";
+
+        videos[4] = "HTML Basics";
+        category[4] = "Education";
+
+        int count = 5;
         int choice;
 
         do {
+
             System.out.println("\n===== VIDEO STREAMING SYSTEM =====");
             System.out.println("1. View Videos");
-            System.out.println("3. Search Video");
-            System.out.println("4. Play Video");
-            System.out.println("5. Add video");
-            System.out.println("6. Sort Video");
-            System.out.println("7. Exit");
+            System.out.println("2. Search Video");
+            System.out.println("3. Play Video");
+            System.out.println("4. Add Video");
+            System.out.println("5. Sort Videos");
+            System.out.println("6. Exit");
             System.out.print("Enter Choice: ");
             choice = sc.nextInt();
             sc.nextLine();
@@ -40,7 +45,7 @@ public class VideoStreamingSystem {
 
                 case 1:
                     System.out.println("\nAvailable Videos");
-                    for (int i = 0; i < videos.length; i++) {
+                    for (int i = 0; i < count; i++) {
                         System.out.println((i + 1) + ". " + videos[i] + " - " + category[i]);
                     }
                     break;
@@ -51,7 +56,7 @@ public class VideoStreamingSystem {
 
                     boolean found = false;
 
-                    for (int i = 0; i < videos.length; i++) {
+                    for (int i = 0; i < count; i++) {
                         if (videos[i].toLowerCase().contains(search.toLowerCase())) {
                             System.out.println("Found: " + videos[i] + " - " + category[i]);
                             found = true;
@@ -67,29 +72,43 @@ public class VideoStreamingSystem {
                     System.out.print("Enter Video Number: ");
                     int video = sc.nextInt();
 
-                    if (video >= 1 && video <= videos.length) {
+                    if (video >= 1 && video <= count) {
                         System.out.println("Now Playing: " + videos[video - 1]);
                     } else {
                         System.out.println("Invalid Video Number");
                     }
                     break;
-                    case 4:
-                    System.out.println("sort video");
+
+                case 4:
+                    if (count < videos.length) {
+                        System.out.print("Enter Video Name: ");
+                        videos[count] = sc.nextLine();
+
+                        System.out.print("Enter Category: ");
+                        category[count] = sc.nextLine();
+
+                        count++;
+
+                        System.out.println("Video Added Successfully.");
+                    } else {
+                        System.out.println("Storage Full.");
+                    }
                     break;
 
-                 case 5:
-                    System.out.println("Add video");
+                case 5:
+                    Arrays.sort(videos, 0, count);
+                    System.out.println("Videos Sorted Successfully.");
                     break;
 
-                  case 6:
+                case 6:
                     System.out.println("Thank You!");
                     break;
 
                 default:
-                    System.out.println("Invalid Choice");
+                    System.out.println("Invalid Choice.");
             }
 
-        } while (choice != 4);
+        } while (choice != 6);
 
         sc.close();
     }
