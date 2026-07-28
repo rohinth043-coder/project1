@@ -1,117 +1,98 @@
-import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.swing.*;
+import java.util.Scanner;
 
-public class VideoStreamingSystem extends JFrame implements ActionListener {
+public class VideoStreamingSystem {
 
-    ArrayList<String> videos = new ArrayList<>();
+    public static void main(String[] args) {
 
-    JTextArea display;
-    JTextField textField;
+        Scanner sc = new Scanner(System.in);
 
-    JButton viewBtn, searchBtn, playBtn, addBtn, sortBtn, exitBtn;
+        ArrayList<String> videos = new ArrayList<>();
 
-    public VideoStreamingSystem() {
-
-        setTitle("Video Streaming System");
-        setSize(500, 450);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
-
+        // Default Videos
         videos.add("Java Tutorial");
         videos.add("Python Course");
         videos.add("Movie Trailer");
         videos.add("Music Video");
         videos.add("HTML Basics");
 
-        display = new JTextArea(15, 40);
-        display.setEditable(false);
+        int choice;
 
-        textField = new JTextField(20);
+        do {
 
-        viewBtn = new JButton("View Videos");
-        searchBtn = new JButton("Search Video");
-        playBtn = new JButton("Play Video");
-        addBtn = new JButton("Add Video");
-        sortBtn = new JButton("Sort Videos");
-        exitBtn = new JButton("Exit");
+            System.out.println("\n===== VIDEO STREAMING SYSTEM =====");
+            System.out.println("1. View Videos");
+            System.out.println("2. Search Video");
+            System.out.println("3. Play Video");
+            System.out.println("4. Add Video");
+            System.out.println("5. Sort Videos");
+            System.out.println("6. Exit");
+            System.out.print("Enter Choice: ");
 
-        add(new JLabel("Video Name:"));
-        add(textField);
+            choice = sc.nextInt();
+            sc.nextLine();
 
-        add(viewBtn);
-        add(searchBtn);
-        add(playBtn);
-        add(addBtn);
-        add(sortBtn);
-        add(exitBtn);
+            switch (choice) {
 
-        add(new JScrollPane(display));
+                case 1:
+                    System.out.println("\nAvailable Videos:");
+                    for (int i = 0; i < videos.size(); i++) {
+                        System.out.println((i + 1) + ". " + videos.get(i));
+                    }
+                    break;
 
-        viewBtn.addActionListener(this);
-        searchBtn.addActionListener(this);
-        playBtn.addActionListener(this);
-        addBtn.addActionListener(this);
-        sortBtn.addActionListener(this);
-        exitBtn.addActionListener(this);
+                case 2:
+                    System.out.print("Enter Video Name: ");
+                    String search = sc.nextLine();
 
-        setVisible(true);
-    }
+                    if (videos.contains(search)) {
+                        System.out.println("Video Found: " + search);
+                    } else {
+                        System.out.println("Video Not Found");
+                    }
+                    break;
 
-    public void actionPerformed(ActionEvent e) {
+                case 3:
+                    System.out.print("Enter Video Name: ");
+                    String play = sc.nextLine();
 
-        if (e.getSource() == viewBtn) {
-            display.setText("Available Videos\n\n");
-            for (int i = 0; i < videos.size(); i++) {
-                display.append((i + 1) + ". " + videos.get(i) + "\n");
+                    if (videos.contains(play)) {
+                        System.out.println("Now Playing: " + play);
+                    } else {
+                        System.out.println("Video Not Found");
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Enter New Video Name: ");
+                    String newVideo = sc.nextLine();
+
+                    videos.add(newVideo);
+
+                    System.out.println("Video Added Successfully.");
+                    break;
+
+                case 5:
+                    Collections.sort(videos);
+                    System.out.println("Videos Sorted Successfully.");
+
+                    System.out.println("\nSorted Video List:");
+                    for (int i = 0; i < videos.size(); i++) {
+                        System.out.println((i + 1) + ". " + videos.get(i));
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Thank You!");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice.");
             }
-        }
 
-        else if (e.getSource() == searchBtn) {
-            String name = textField.getText();
+        } while (choice != 6);
 
-            if (videos.contains(name)) {
-                display.setText("Video Found : " + name);
-            } else {
-                display.setText("Video Not Found");
-            }
-        }
-
-        else if (e.getSource() == playBtn) {
-            String name = textField.getText();
-
-            if (videos.contains(name)) {
-                display.setText("Now Playing : " + name);
-            } else {
-                display.setText("Video Not Found");
-            }
-        }
-
-        else if (e.getSource() == addBtn) {
-            String name = textField.getText();
-
-            if (!name.isEmpty()) {
-                videos.add(name);
-                display.setText("Video Added Successfully");
-                textField.setText("");
-            } else {
-                display.setText("Enter Video Name");
-            }
-        }
-
-        else if (e.getSource() == sortBtn) {
-            Collections.sort(videos);
-            display.setText("Videos Sorted Successfully");
-        }
-
-        else if (e.getSource() == exitBtn) {
-            System.exit(0);
-        }
-    }
-
-    public static void main(String[] args) {
-        new VideoStreamingSystem();
+        sc.close();
     }
 }
